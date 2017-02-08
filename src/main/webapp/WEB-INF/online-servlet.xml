@@ -10,6 +10,21 @@
 		
 		
 		
-		<context:component-scan base-package="com.onlineexam" />
-   
+	<context:component-scan base-package="com.onlineexam" />
+	<!-- 
+   	<beans:bean name="viewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver"/>
+    <beans:bean name="jsonTemplate" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
+ 	<beans:bean name="heroes" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
+ 	 --><beans:bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>
+
+ 	
+ 	<beans:bean id="jacksonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+	<beans:bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+	
+	<beans:property name="messageConverters">
+	  <beans:list>
+	    <beans:ref bean="jacksonMessageConverter"/>
+	  </beans:list>
+	</beans:property>
+ 	</beans:bean>
 </beans:beans>
