@@ -20,13 +20,17 @@ import javax.tools.ToolProvider;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-
+@CrossOrigin(origins="http://localhost:3000", maxAge=3600)
+@Controller
 @RestController
 public class RestAPI {
 
@@ -37,7 +41,7 @@ public class RestAPI {
 		
 	}
 	
-	/*@RequestMapping(value="/hero",method=RequestMethod.GET)
+	@RequestMapping(value="/hero",method=RequestMethod.GET)
 	public ResponseEntity<List<Hero>> getHeros(Model model){
 		 	
 			List<Hero> list = new ArrayList<Hero>();
@@ -45,16 +49,16 @@ public class RestAPI {
 			Hero hero = new Hero(1, "restCall");
 			list.add(hero);
 		    HttpHeaders headers = new HttpHeaders();
-		    headers.add("Access-Control-Allow-Origin", "http://localhost:3000");
+		   // headers.add("Access-Control-Allow-Origin", "http://localhost:3000");
 		    headers.add("Content-Type", "application/json; charset=UTF-8");
 		    headers.add("X-Fsl-Location", "/");
 		    headers.add("X-Fsl-Response-Code", "302");
 		    return (new ResponseEntity<List<Hero>>(list, headers, HttpStatus.OK));
 	}
-	*/
+	
 	
 	@RequestMapping(value="/compile", method=RequestMethod.POST)
-	public ResponseEntity<List<Compilation>> compileCode(@RequestBody Payload payload, Model model){
+	public ResponseEntity<Compilation> compileCode(@RequestBody Payload payload){
 		
 		System.out.println(payload.getData());
 		
@@ -76,7 +80,7 @@ public class RestAPI {
 			while((line=bufferedReader.readLine())!=null){
 				System.out.println(line);
 			}bufferedReader.close();
-			
+				
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 		} catch (IOException e) {
@@ -122,12 +126,12 @@ public class RestAPI {
         file.delete();
         
         HttpHeaders headers = new HttpHeaders();
-	    headers.add("Access-Control-Allow-Origin", "http://localhost:3000");
+	   // headers.add("Access-Control-Allow-Origin", "http://localhost:3000");
 	    headers.add("Content-Type", "application/json; charset=UTF-8");
 	    headers.add("X-Fsl-Location", "/");
 	    headers.add("X-Fsl-Response-Code", "302");
         
-        return new ResponseEntity<List<Compilation>>(listOfCompilation, headers, HttpStatus.OK);
+        return new ResponseEntity<Compilation>(compilation, headers, HttpStatus.OK);
 		
 		
 		
