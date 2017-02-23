@@ -11,7 +11,7 @@ import { Component} from '@angular/core';
         </div>
     `,
 })
-export class CommentComponent { 
+export class CompileComponent { 
     // Event tracking properties
    /* private listId = 'COMMENT_COMPONENT_LIST';
     private editId = 'COMMENT_COMPONENT_EDIT';*/
