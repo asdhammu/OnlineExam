@@ -20,6 +20,7 @@ export class CommentService {
      postCode(data: string): Promise<any>{
         let test_this = { "data": data};
         let headers = new Headers({ 'Content-Type': 'application/json'});
+        headers.append('Access-Control-Allow-Origin','*');
         let options = new RequestOptions({ headers: headers });
         //this.payload.data = data;
         return this.http.post('http://localhost:8080/onlineexam/compile', JSON.stringify(test_this), options).toPromise()
