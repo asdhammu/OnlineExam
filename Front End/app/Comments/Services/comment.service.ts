@@ -2,7 +2,6 @@
 // Imports
 import { Injectable }     from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { Comment }           from '../model/comment';
 import {Observable} from 'rxjs/Rx';
 
 // Import RxJs required methods

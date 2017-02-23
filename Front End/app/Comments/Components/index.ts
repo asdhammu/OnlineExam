@@ -1,7 +1,6 @@
 /* * * ./app/comments/components/index.ts * * */
 // Imports
 import { Component} from '@angular/core';
-import {EmitterService} from '../../emitter.service';
 
 @Component({
     selector: 'compile-widget',

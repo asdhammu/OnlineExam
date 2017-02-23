@@ -3,11 +3,7 @@
 import { Component, EventEmitter, Input, OnChanges } from '@angular/core';
 import { NgForm }    from '@angular/forms';
 import {Observable} from 'rxjs/Rx';
-
-import { CommentBoxComponent } from './comment-box.component'
 import { CommentService } from '../services/comment.service';
-import { EmitterService } from '../../emitter.service';
-import { Comment } from '../model/comment'
 import {Compile} from '../model/compile';
 
 // Component decorator
@@ -38,7 +34,7 @@ import {Compile} from '../model/compile';
     providers: [CommentService]
 })
 // Component class
-export class CommentFormComponent implements OnChanges { 
+export class CommentFormComponent{ 
     // Constructor with injected service
     constructor(
         private commentService: CommentService
