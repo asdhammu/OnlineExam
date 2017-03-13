@@ -13,9 +13,10 @@ export class CompileService {
      // Resolve HTTP using the constructor
      constructor (private http: Http) {}
      // private instance variable to hold base url
-     private compileUrl = 'http://localhost:8080/onlineexam/compile';
+     //private compileUrl = 'http://localhost:8080/onlineexam/compile';
      private commentsUrl = 'http://localhost:3000/api/comments';
 
+     private compileUrl = 'http://lowcost.bmjxmh3jyq.us-west-2.elasticbeanstalk.com/compile';
 
      postCode(data: string): Promise<any>{
         let test_this = { "data": data};
@@ -23,13 +24,13 @@ export class CompileService {
         headers.append('Access-Control-Allow-Origin','*');
         let options = new RequestOptions({ headers: headers });
         //this.payload.data = data;
-        return this.http.post('http://localhost:8080/onlineexam/compile', JSON.stringify(test_this), options).toPromise()
+        return this.http.post(this.compileUrl, JSON.stringify(test_this), options).toPromise()
             .then(response=> response.json())
             .catch(this.handleError);
     }
 
-    // private commentsUrl = 'http://578f454de2fa491100415d08.mockapi.io/api/Comment'; 
-     
+    // private commentsUrl = 'http://578f454de2fa491100415d08.mockapi.io/api/Comment';
+
      // Fetch all existing comments
      /*getComments() : Observable<Comment[]>{
          // ...using get request
@@ -38,7 +39,7 @@ export class CompileService {
                          .map((res:Response) => res.json())
                          //...errors if any
                          .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
-        
+
      }
 
      // Add a new comment
@@ -67,10 +68,10 @@ export class CompileService {
         return this.http.delete(`${this.commentsUrl}/${id}`) // ...using put request
                          .map((res:Response) => res.json()) // ...and calling .json() on the response to return data
                          .catch((error:any) => Observable.throw(error.json().error || 'Server error')); //...errors if any
-    } 
+    }
 
 
-    
+
     private handleError(error:any): Promise<any>{
 
         console.error("error occured",error);

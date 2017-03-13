@@ -3,7 +3,7 @@ import { BrowserModule }  from '@angular/platform-browser';
 import { FormsModule }    from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 
-import { CompileModule } from './compile/compile.module';
+import { CompileModule } from './Compile/compile.module';
 
 import { AppComponent }         from './app.component';
 //import { EmitterService }          from './emitter.service';
@@ -16,12 +16,12 @@ import { AppComponent }         from './app.component';
     HttpModule,
     JsonpModule,
     CompileModule
-    
+
   ],
   declarations: [
     AppComponent,
   ],
-  
+
   bootstrap: [ AppComponent ]
 })
 export class AppModule {

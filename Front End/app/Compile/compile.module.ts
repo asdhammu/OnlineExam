@@ -2,11 +2,11 @@ import { NgModule }       from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
 import { FormsModule }    from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
-import { CompileFormComponent } from './components/compile-form.component';
-import { CompileComponent } from './components/index';
+import { CompileFormComponent } from './Components/compile-form.component';
+import { CompileComponent } from './Components/index';
 
 
-import { CompileService } from './services/compile.service';
+import { CompileService } from './Services/compile.service';
 
 
 @NgModule({
@@ -15,7 +15,7 @@ import { CompileService } from './services/compile.service';
     FormsModule,
      HttpModule,
     JsonpModule,
-    
+
   ],
   declarations: [
     CompileFormComponent,
@@ -29,7 +29,7 @@ import { CompileService } from './services/compile.service';
   exports:[
     CompileComponent
   ]
-  
+
 })
 export class CompileModule {
 }

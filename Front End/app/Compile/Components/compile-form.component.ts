@@ -3,8 +3,8 @@
 import { Component, EventEmitter, Input, OnChanges } from '@angular/core';
 import { NgForm }    from '@angular/forms';
 import {Observable} from 'rxjs/Rx';
-import { CompileService } from '../services/compile.service';
-import {Compile} from '../model/compile';
+import { CompileService } from '../Services/compile.service';
+import {Compile} from '../Model/compile';
 
 // Component decorator
 @Component({
@@ -34,15 +34,15 @@ import {Compile} from '../model/compile';
     providers: [CompileService]
 })
 // Component class
-export class CompileFormComponent{ 
+export class CompileFormComponent{
     // Constructor with injected service
     constructor(
         private compileService: CompileService
         ){}
-    
+
     private code = "";
     compileResult : Compile;
-    
+
      compileCode():void{
          //alert(this.code);
          this.compileService.postCode(this.code).then(result => this.compileResult = result);
