@@ -9,7 +9,7 @@
          pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -20,18 +20,18 @@
 
     <jsp:include page="header.jsp"/>
 
-    ${welcome}
-
-	<c:if test="${pageContext.request.userPrincipal.name != null}">
-        <form id="logoutForm" method="POST" action="${contextPath}/logout">
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        </form>
-
-        <h2>Welcome ${pageContext.request.userPrincipal.name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a></h2>
-
-		<%-- <h3><a href="accountsummary?username=${pageContext.request.userPrincipal.name}">Account Summary</a></h3> --%>
-    </c:if>
-
+	<div class="container">
+		<div class="row">
+		
+			<div class="col-lg-6">
+				${welcome}
+			</div>	
+			<div class="col-lg-6">
+			</div>
+		</div>
+		
+	</div>
+	
     <jsp:include page="footer.jsp"/>
 </body>
 </html>

@@ -8,18 +8,16 @@
 		http://www.springframework.org/schema/security/spring-security.xsd">
 
     <http auto-config="true">
-        <intercept-url pattern="/" access="hasRole('ROLE_STUDENT,ROLE_ADMIN,ROLE_TEACHER')"/>
+        <intercept-url pattern="/" access="hasRole('ROLE_USER')"/>
         <intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/teacher" access="hasRole('ROLE_TEACHER')"/>
         <intercept-url pattern="/student" access="hasRole('ROLE_STUDENT')"/>
-        <form-login login-page="/login"
-        			default-target-url="/welcome"
-					username-parameter="j_username" 
-					password-parameter="j_password" 
-					login-processing-url="/j_spring_security_check" 
-					authentication-failure-url="/login?login_error=1"
-		/>
+        <form-login login-page="/login" default-target-url="/welcome" authentication-failure-url="/login?error" username-parameter="username" password-parameter="password"/>
         <logout logout-success-url="/login?logout" />
+        <logout logout-success-url="/login?logout" />
+        <session-management>
+        	<concurrency-control expired-url="/sessionExpired"/>
+        </session-management>
         <csrf />
     </http>
 

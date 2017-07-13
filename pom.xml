@@ -59,7 +59,7 @@
    		<artifactId>spring-context</artifactId>
     	<version>${spring.framework.version}</version>
 	</dependency>
-	<dependency>
+	<!-- <dependency>
 	   <groupId>com.googlecode.json-simple</groupId>
 	   <artifactId>json-simple</artifactId>
 	   <version>1.1.1</version>
@@ -73,7 +73,7 @@
 	    <groupId>com.fasterxml.jackson.core</groupId>
 	    <artifactId>jackson-databind</artifactId>
 	    <version>2.4.1.1</version>
-	</dependency>
+	</dependency> -->
 	  <dependency>
 		  <groupId>org.hibernate</groupId>
 		  <artifactId>hibernate-entitymanager</artifactId>
