@@ -1,56 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- <beans:beans xmlns="http://www.springframework.org/schema/mvc"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
-	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
-	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd"> -->
 <beans xmlns="http://www.springframework.org/schema/beans"
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
      xmlns:context="http://www.springframework.org/schema/context"
      xmlns:mvc="http://www.springframework.org/schema/mvc"
+      xmlns:jpa="http://www.springframework.org/schema/data/jpa"
      xsi:schemaLocation="
       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-      http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">		
-		
-	<mvc:annotation-driven/>
-	<context:component-scan base-package="com.onlineexam" />
-	<!-- 
-   	<beans:bean name="viewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver"/>
-    <beans:bean name="jsonTemplate" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
- 	<beans:bean name="heroes" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
- 	-->
- 	
-	<!-- <beans:bean class="org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter"/> -->
- 	<bean  class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>
- 	
- 	
-   	<bean id="jacksonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
-   	<bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"></bean>
-   	<bean class="org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter"></bean>
-	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
-	
- 
- 	<property name="messageConverters">
-	  <list>
-	    <ref bean="jacksonMessageConverter"/>
-	  </list>
-	</property>
- 	</bean>
- 	
-	<!-- <mvc:cors>
-		<mvc:mapping path="/**"
-		allowed-origins="http://localhost:3000, http://domain2.com"
-		allowed-methods="GET, PUT, POST"
-		allowed-headers="header1, header2, header3"
-		exposed-headers="header1, header2" allow-credentials="false"
-		max-age="123" />
+      http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd 
+      http://www.springframework.org/schema/data/jpa
+    http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">	
 
-		<mvc:mapping path="/resources/**" allowed-origins="http://localhost:3000" />
-	</mvc:cors> -->
+	<import resource="appconfig-security.xml"/>
+
+	<!-- <mvc:annotation-driven/> -->
+	<context:component-scan base-package="edu.UTDallas.*" />
+
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+      <property name="prefix" value="/WEB-INF/jsp/" />
+      <property name="suffix" value=".jsp" />
+ 	</bean>
+
+	<mvc:resources mapping="/resources/**" location="/resources/"/>
+
+	<mvc:annotation-driven/>
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="/resources/messages/validation"/>      
+        
+    </bean>
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		  destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/onlineexamportal"/>
+
+		<property name="username" value="root" />
+
+		<property name="password" value="admin"></property>
+	</bean>
+	<bean id="hibernate4AnnotatedSessionFactory"
+		  class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="annotatedClasses">
+			<list>
+				<value>edu.UTDallas.entity.User</value>
+				<value>edu.UTDallas.entity.Course</value>
+				<value>edu.UTDallas.entity.Role</value>
+				<value>edu.UTDallas.entity.Section</value>
+				<value>edu.UTDallas.entity.StudentSection</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.enable_lazy_load_no_trans">true</prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+
+	</bean>
+
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="packagesToScan" value="edu.UTDallas.entity"/>
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+		</property>
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="transactionManager"
+		  class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory"/>
+	</bean>
+
+	<bean id="userService" class="edu.UTDallas.service.UserServiceImpl">
+		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"></property>
+	</bean>
+
+	<jpa:repositories base-package="edu.UTDallas.dao.repository"/>
+
  	
  	
 </beans>

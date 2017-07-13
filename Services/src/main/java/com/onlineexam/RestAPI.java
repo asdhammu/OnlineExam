@@ -24,12 +24,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-@CrossOrigin(origins={"http://localhost:3000","http://lowcost.bmjxmh3jyq.us-west-2.elasticbeanstalk.com"}, maxAge=3600)
+@CrossOrigin(origins={"http://localhost:3000","http://angular-env.us-west-2.elasticbeanstalk.com"}, maxAge=3600)
 @Controller
 @RestController
 public class RestAPI {
 
-	@RequestMapping(value="/", method=RequestMethod.GET,produces = "application/json")
+	/*@RequestMapping(value="/", method=RequestMethod.GET,produces = "application/json")
 	public ResponseEntity<String> getString(){
 				
 		return new ResponseEntity<String>("Hello",HttpStatus.OK);
@@ -55,18 +55,20 @@ public class RestAPI {
 	@RequestMapping(value="/compile", method=RequestMethod.POST)
 	public ResponseEntity<Compilation> compileCode(@RequestBody Payload payload){
 		
-		System.out.println(System.getProperty("java.home"));
 		Compilation compilation = new Compilation();
 		HttpHeaders headers = new HttpHeaders();
 		//System.setProperty("java.home", arg0);
 		try {
 						
+			String fileName = "Test";
 			JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 	        StandardJavaFileManager fileManager =   compiler.getStandardFileManager(null, null, null);
 	        
 	        DiagnosticCollector<JavaFileObject> diagnosticsCollector = new DiagnosticCollector<JavaFileObject>();
 	        
-	        List<JavaFileObject> compilations = Collections.<JavaFileObject>singletonList(new JavaSourceFromString("Solution", payload.getData()));
+	        JavaSourceFromString javaFile = new JavaSourceFromString(fileName, payload.getData());
+	        
+	        List<JavaFileObject> compilations = Collections.<JavaFileObject>singletonList(javaFile);
 	        //List<File> sourceFileList = new ArrayList <File> ();
 	       // sourceFileList.add(new File(fileName));
 	        //Iterable<? extends JavaFileObject> compilationUnits = fileManager.getJavaFileObjectsFromFiles (sourceFileList);
@@ -94,7 +96,8 @@ public class RestAPI {
 	        listOfCompilation.add(compilation);
 	        
 	        fileManager.close ();
-	        	        
+	        
+	        javaFile.delete();
 		   // headers.add("Access-Control-Allow-Origin", "http://localhost:3000");
 		    headers.add("Content-Type", "application/json; charset=UTF-8");
 		    headers.add("X-Fsl-Location", "/");
@@ -107,7 +110,7 @@ public class RestAPI {
 		
 		
 		
-	}
+	}*/
 	
 	
 }
