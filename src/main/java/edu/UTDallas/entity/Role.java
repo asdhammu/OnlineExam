@@ -27,6 +27,14 @@ public class Role {
     @JoinColumn(name = "username")
     private User user;
 
+    public Role() {
+		// TODO Auto-generated constructor stub
+	}
+    
+    public Role(User user){
+    	this.user = user;
+    }
+    
     public Long getId() {
         return id;
     }

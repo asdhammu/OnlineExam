@@ -55,13 +55,13 @@
             </div>
         </spring:bind>
 
-		<spring:bind path="roles">
+		<spring:bind path="roleOfUser">
             <div class="form-group ${status.error ? 'has-error' : ''}">
-            	<form:checkbox path="roles" label="Student" value="Student"/><br/>	
-            	<form:checkbox path="roles" label="Teacher" value="Teacher"/>
-            	<form:checkbox path="roles" label="Admin" value="Admin"/><br/>
+            	<form:checkbox path="roleOfUser" label="Student" value="Student"/><br/>	
+            	<form:checkbox path="roleOfUser" label="Teacher" value="Teacher"/>
+            	<form:checkbox path="roleOfUser" label="Admin" value="Admin"/><br/>
             	   
-            	<form:errors path="roles"></form:errors>             
+            	<form:errors path="roleOfUser"></form:errors>             
             </div>
         </spring:bind>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>

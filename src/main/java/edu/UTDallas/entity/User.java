@@ -11,6 +11,8 @@ import java.util.Set;
 @Table(name = "user")
 public class User {
 
+	
+	
     @Id
     @Column(name = "username")
     private String username;
@@ -30,13 +32,25 @@ public class User {
     @Transient
 	private String passwordConfirm;
     
+    @Transient
+    private String[] roleOfUser;
+    
     @OneToMany(mappedBy = "user")
     private List<Section> sectionList;
 
     @OneToMany(mappedBy = "user")
     private Set<Role> roles;
 
-    public String getUsername() {
+    
+    public String[] getRoleOfUser() {
+		return roleOfUser;
+	}
+
+	public void setRoleOfUser(String[] roleOfUser) {
+		this.roleOfUser = roleOfUser;
+	}
+
+	public String getUsername() {
         return username;
     }
 

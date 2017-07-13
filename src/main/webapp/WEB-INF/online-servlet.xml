@@ -3,13 +3,14 @@
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
      xmlns:context="http://www.springframework.org/schema/context"
      xmlns:mvc="http://www.springframework.org/schema/mvc"
-      xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+     xmlns:tx="http://www.springframework.org/schema/tx"
+     xmlns:jpa="http://www.springframework.org/schema/data/jpa"
      xsi:schemaLocation="
       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd 
-      http://www.springframework.org/schema/data/jpa
-    http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">	
+      http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">	
 
 	<import resource="appconfig-security.xml"/>
 
@@ -80,11 +81,15 @@
 	</bean>
 
 	<bean id="userService" class="edu.UTDallas.service.UserServiceImpl">
-		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"></property>
+		<property name="userDao" ref="userDao"></property>
 	</bean>
 
+	<bean id="userDao" class="edu.UTDallas.dao.UserDaoImpl">
+		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</bean>
+	
 	<jpa:repositories base-package="edu.UTDallas.dao.repository"/>
 
- 	
+ 	<tx:annotation-driven transaction-manager="transactionManager"/>
  	
 </beans>

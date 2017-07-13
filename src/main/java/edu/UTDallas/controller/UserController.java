@@ -57,6 +57,13 @@ public class UserController {
         return "redirect:/index";
     }
 
+    @RequestMapping(value="/security_check")
+    public String login(){
+    	
+    	
+    	return "redirect:/welcome";
+    }
+    
 	@RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
         model.addAttribute("userForm", new User());

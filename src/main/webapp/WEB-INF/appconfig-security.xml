@@ -12,8 +12,15 @@
         <intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/teacher" access="hasRole('ROLE_TEACHER')"/>
         <intercept-url pattern="/student" access="hasRole('ROLE_STUDENT')"/>
-        <form-login login-page="/login" default-target-url="/welcome" authentication-failure-url="/login?error" username-parameter="username" password-parameter="password"/>
+        <form-login login-page="/login"
+        			default-target-url="/welcome"
+					username-parameter="j_username" 
+					password-parameter="j_password" 
+					login-processing-url="/j_spring_security_check" 
+					authentication-failure-url="/login?login_error=1"
+		/>
         <logout logout-success-url="/login?logout" />
+        <csrf />
     </http>
 
     <authentication-manager alias="authenticationManager">

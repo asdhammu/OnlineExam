@@ -22,6 +22,15 @@
 
     ${welcome}
 
+	<c:if test="${pageContext.request.userPrincipal.name != null}">
+        <form id="logoutForm" method="POST" action="${contextPath}/logout">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        </form>
+
+        <h2>Welcome ${pageContext.request.userPrincipal.name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a></h2>
+
+		<%-- <h3><a href="accountsummary?username=${pageContext.request.userPrincipal.name}">Account Summary</a></h3> --%>
+    </c:if>
 
     <jsp:include page="footer.jsp"/>
 </body>
