@@ -25,6 +25,7 @@
 		
 			<div class="col-lg-6">
 				${welcome}
+				<jsp:include page="editor.jsp"></jsp:include>
 			</div>	
 			<div class="col-lg-6">
 			</div>

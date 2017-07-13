@@ -41,7 +41,7 @@ public class UserController {
 
 	@RequestMapping(value = { "/", "/index", "welcome" }, method = RequestMethod.GET)
 	public String welcome(Model model) {
-		model.addAttribute("welcome", "welcome to Online Exam portal");
+		model.addAttribute("welcome", "Welcome to Online Exam portal");
 		return "welcome";
 	}
 
