@@ -11,7 +11,7 @@
      	<intercept-url pattern="/login" access="permitAll"/>
      	<intercept-url pattern="/registration" access="permitAll"/>
      	<intercept-url pattern="/resources/**" access="permitAll"/>
-        <intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/**" access="hasAnyRole('ROLE_ADMIN,ROLE_TEACHER,ROLE_STUDENT')"/>
         <intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/teacher/*" access="hasRole('ROLE_TEACHER')"/>
         <intercept-url pattern="/student/*" access="hasRole('ROLE_STUDENT')"/>
