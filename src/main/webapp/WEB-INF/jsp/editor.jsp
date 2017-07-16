@@ -26,21 +26,66 @@
 <body>
 
 <!-- <div class="scrollmargin"></div> -->
-<pre id="editor" style="width:900px"></pre>
+<!-- <div id="editor" style="width:900px"> hello india</div>
+ -->
+<pre id="description" style="width:900px">
+/**
+Hello world
+**/
 
+public static callMethod(String[] params){
+	
+}
+</pre>
+
+<textarea id="code"></textarea>
+<button class="btn btn-lg btn-primary btn-block">Compile</button>
+
+<form method="post" action="compile">
+	
+	<input type="submit" >
+</form>
+
+ 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script> 
 <!-- load ace -->
 <script src="${contextPath}/resources/src-noconflict/ace.js"></script>
 <!-- load ace language tools -->
-<%-- <script src="${contextPath}/resources/src-noconflict/ext-language_tools.js"></script> --%>
+<script src="${contextPath}/resources/src-noconflict/ext-language_tools.js"></script>
 <script>
 
-var editor = ace.edit("editor");
+var editor = ace.edit("description");
 editor.setTheme("ace/theme/tomorrow");
 editor.session.setMode("ace/mode/java");
 editor.setAutoScrollEditorIntoView(true);
-editor.setOption("maxLines", 100);
-</script>
+editor.setOption("maxLines", 50);
+editor.setOptions({
+    enableBasicAutocompletion: true,
+    enableSnippets: true,
+    enableLiveAutocompletion: false
+});
 
-<script src="${contextPath}/resources/show_own_source.js"></script>
+editor.session.on('change', function(){
+	  txtArea.val(editor.session.getValue());
+});
+
+var row = editor.session.getLength() - 3;
+var column = editor.session.getLine(row).length // or simply Infinity
+editor.gotoLine(row + 1, column);
+
+
+/* $(document).ready(function() {
+    $('textarea#code').hide();
+});
+ */
+var txtArea = $("textarea#code").hide();
+
+
+
+
+
+</script>	
+
+<!-- <script src="resources/show_own_source.js"></script> -->
 </body>
 </html>
