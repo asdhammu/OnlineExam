@@ -16,12 +16,11 @@
         <intercept-url pattern="/teacher/*" access="hasRole('ROLE_TEACHER')"/>
         <intercept-url pattern="/student/*" access="hasRole('ROLE_STUDENT')"/>
         <form-login login-page="/login" default-target-url="/welcome" authentication-failure-url="/login?error" username-parameter="username" password-parameter="password"/>
-        <logout logout-success-url="/login?logout" />
-        <logout logout-success-url="/login?logout" />
+        <logout logout-success-url="/login?logout" />        
         <session-management>
         	<concurrency-control expired-url="/sessionExpired"/>
         </session-management>
-        <csrf />
+        <csrf/>
     </http>
 
     <authentication-manager alias="authenticationManager">

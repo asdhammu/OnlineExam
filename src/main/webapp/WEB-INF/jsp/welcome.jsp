@@ -21,10 +21,11 @@
     <jsp:include page="header.jsp"/>
 
 	<div class="container">
+		<div class="row">${welcome}</div>
+		<div class="row"> Question description: Write code to build a binary tree</div>
 		<div class="row">
 		
-			<div class="col-lg-6">
-				${welcome}
+			<div class="col-lg-6">				
 				<jsp:include page="editor.jsp"></jsp:include>
 			</div>	
 			<div class="col-lg-6">

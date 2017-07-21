@@ -6,10 +6,6 @@
 <%@ page isELIgnored="false" %>   
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<title>ACE in Action</title>
 <style type="text/css" media="screen">
     .ace_editor {
 		border: 1px solid lightgray;
@@ -22,30 +18,38 @@
         text-align: center;
 	}
 </style>
-</head>
-<body>
+
 
 <!-- <div class="scrollmargin"></div> -->
 <!-- <div id="editor" style="width:900px"> hello india</div>
  -->
-<pre id="description" style="width:900px">
-/**
-Hello world
-**/
-
-public static callMethod(String[] params){
-	
-}
-</pre>
+<div class="row">
+	<pre id="description" style="width:900px">
+	/**
+	Hello world
+	**/	
+	public String getName(String name){
+		
+	}
+	</pre>
 
 <textarea id="code"></textarea>
-<button class="btn btn-lg btn-primary btn-block">Compile</button>
 
-<form method="post" action="compile">
+</div>
+<div class="row" style="padding-top:10px">
 	
-	<input type="submit" >
-</form>
+	<span>INPUT:</span>
+</div>
 
+<div class="row" style="padding-top:10px">
+	
+	<textarea id="input"></textarea>
+</div>
+<div class="row" style="padding-top:10px">
+	<button type="button" onclick="compileCode()" class="btn btn-lg btn-primary">COMPILE</button>
+</div>
+<div class="row" id="compileResult">
+</div>
  
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script> 
 <!-- load ace -->
@@ -69,6 +73,8 @@ editor.session.on('change', function(){
 	  txtArea.val(editor.session.getValue());
 });
 
+	
+
 var row = editor.session.getLength() - 3;
 var column = editor.session.getLine(row).length // or simply Infinity
 editor.gotoLine(row + 1, column);
@@ -80,12 +86,36 @@ editor.gotoLine(row + 1, column);
  */
 var txtArea = $("textarea#code").hide();
 
+ 
+ 
+function compileCode() {
+	
+	var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    var dataValue = document.getElementById('code').value;
+    var inputValue = document.getElementById('input').value
+		$.ajax({
+            url: 'compile',
+            beforeSend: function(request) {
+                request.setRequestHeader(header, token);
+            },
+            type: 'post',
+            dataType: 'text',
+            data: {"compileCode":dataValue,"input":inputValue},
+            success: successHandler
+    });
+		
+		function successHandler(data) {		
+			$('#compileResult').html(data);
+	       
+	    }
+	
+} 
 
 
 
 
 </script>	
 
-<!-- <script src="resources/show_own_source.js"></script> -->
-</body>
-</html>
+<!-- <script src="resources/show_own_source.js"></script>
+ -->
