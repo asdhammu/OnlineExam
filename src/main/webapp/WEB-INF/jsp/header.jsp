@@ -20,6 +20,7 @@
     <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
     <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
     <link href="${contextPath}/resources/css/main.css" rel="stylesheet">
+    <link rel="icon" href="data:;base64,=">
 </head>
 
 

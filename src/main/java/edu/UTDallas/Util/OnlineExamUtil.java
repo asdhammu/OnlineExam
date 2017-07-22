@@ -2,6 +2,9 @@ package edu.UTDallas.Util;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import edu.UTDallas.entity.User;
@@ -12,51 +15,65 @@ public class OnlineExamUtil {
 	
 	private static final Logger LOGGER = Logger.getLogger(ClassName.class.getName());
 	
-	private static final String headerContent =
-						"package edu.UTDallas.Util;"  + 	
-		                  "public class MyClass{\n";
+	private static final String headerContent ="public class MyClass{\n";
 								
-	private static final String endContent = "}\n";
+	private static final String endContent ="}\n";
 	
 	public static String compileCode(String codeValue, User user, String input) {
-
-		LOGGER.info("Code Value" + codeValue);
-			
-		
 		return compileCode(codeValue,input);
-
 	}
 	
 	
 	private static String compileCode(String code,String input){
-		String className = "edu.UTDallas.Util.MyClass";
+		
+		String className = "MyClass";
 		String javaCode = headerContent + code + endContent;
-		                  		
-		//CompilerUtils.addClassPath("/onlineexam/src/main/java/edu/UTDallas/Util");
 		
         final StringWriter writer = new StringWriter();
-        MyClass class1 = null;
-        //MyInterface interface1 = null;
+             
         ClassLoader classLoader = new ClassLoader() {
 		};
+		
         try{
-        	/*CompilerUtils.CACHED_COMPILER.loadFromJava("edu.UTDallas.Util.MyInterface", "package edu.UTDallas.Util;"
-        					+ "public interface MyInterface { public String getName(String name); }");*/
-	        CompilerUtils.CACHED_COMPILER.loadFromJava(
+        	/*CompilerUtils.CACHED_COMPILER.loadFromJava(
+        			classLoader, "edu.UTDallas.Util.MyInterface", "package edu.UTDallas.Util;"  + 	
+		                  "public interface MyInterface {\n" +
+	        				"public String getName(String name);"+
+		                  "}",
+	        new PrintWriter(writer));*/
+        	Class<?> class1 = CompilerUtils.CACHED_COMPILER.loadFromJava(
 	        		classLoader, className, javaCode,
-	        new PrintWriter(writer)).newInstance();
-	        class1 = new MyClass();
-        }catch(Exception e){
-        	System.out.println(e);
-        }
+	        new PrintWriter(writer));
+        	
+            Method method = class1.getMethods()[0];
+	        
+	        String s = (String) method.invoke(class1.newInstance(), new Object[] {input});
+	        if(writer.toString().equalsIgnoreCase("")){
+	        	return s;
+	        }
+        }catch(ClassNotFoundException e){
+        	LOGGER.log(Level.SEVERE, e.getMessage());
+        } catch (IllegalAccessException e) {
+			writer.flush();
+			writer.write(e.getMessage());
+			LOGGER.log(Level.SEVERE, e.getMessage());
+		} catch (IllegalArgumentException e) {
+			writer.flush();
+			writer.write(e.getMessage());
+			LOGGER.log(Level.SEVERE, e.getMessage());
+		} catch (InvocationTargetException e) {
+			writer.flush();
+			writer.write(e.getTargetException().toString());
+			LOGGER.log(Level.SEVERE, e.getTargetException().toString());
+		} catch (InstantiationException e) {
+			writer.flush();
+			writer.write(e.getMessage());
+			LOGGER.log(Level.SEVERE, e.getMessage());
+		}
         
-        if(writer.toString().equalsIgnoreCase(""))
-        	return class1.getName(input);
-            //return class1.getName(input);
-        else{
-        	System.out.println(writer.toString());
-        	return writer.toString();
-        }
+        	
+        return writer.toString();
+        
         	        
 	}	
 }

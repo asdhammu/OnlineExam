@@ -1,5 +1,7 @@
 package edu.UTDallas.controller;
 
+import java.util.logging.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,6 +18,7 @@ import edu.UTDallas.entity.User;
 import edu.UTDallas.service.SecurityService;
 import edu.UTDallas.service.UserService;
 import edu.UTDallas.validator.UserValidator;
+import javassist.bytecode.stackmap.TypeData.ClassName;
 
 /**
  * Created by asdha on 5/25/2017.
@@ -23,6 +26,8 @@ import edu.UTDallas.validator.UserValidator;
 @Controller
 public class UserController {
 
+	private static final Logger LOGGER = Logger.getLogger(ClassName.class.getName());
+	
 	@Autowired
 	private UserValidator userValidator;
 
@@ -66,8 +71,9 @@ public class UserController {
 	
 	@RequestMapping(value="/compile",method=RequestMethod.POST)
 	public String compile(@RequestParam("compileCode") String compileCode, @RequestParam("input") String input, Model model){
-		System.out.println("data" + compileCode);
-		System.out.println("input" + input);
+		
+		LOGGER.info("CODE is: " + compileCode + " Input is :" + input);
+		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	    String name = auth.getName();
 		
