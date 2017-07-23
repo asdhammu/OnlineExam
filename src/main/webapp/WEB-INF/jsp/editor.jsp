@@ -1,11 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ page isELIgnored="false" %>   
-<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-
 <style type="text/css" media="screen">
     .ace_editor {
 		border: 1px solid lightgray;
@@ -20,9 +12,6 @@
 </style>
 
 
-<!-- <div class="scrollmargin"></div> -->
-<!-- <div id="editor" style="width:900px"> hello india</div>
- -->
 <div class="row">
 	<pre id="description" style="width:900px">
 	/**
@@ -53,9 +42,9 @@
  
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script> 
 <!-- load ace -->
-<script src="${contextPath}/resources/src-noconflict/ace.js"></script>
+<script src="resources/src-noconflict/ace.js"></script>
 <!-- load ace language tools -->
-<script src="${contextPath}/resources/src-noconflict/ext-language_tools.js"></script>
+<script src="resources/src-noconflict/ext-language_tools.js"></script>
 <script>
 
 var editor = ace.edit("description");

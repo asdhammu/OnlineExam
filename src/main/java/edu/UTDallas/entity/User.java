@@ -38,7 +38,7 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Section> sectionList;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(fetch = FetchType.EAGER ,mappedBy = "user",cascade = CascadeType.ALL)
     private Set<Role> roles;
 
     

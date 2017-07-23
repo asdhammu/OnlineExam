@@ -8,6 +8,7 @@
 		http://www.springframework.org/schema/security/spring-security.xsd">
 
     <http auto-config="true" use-expressions="true">
+    	<access-denied-handler error-page="/403" />
      	<intercept-url pattern="/login" access="permitAll"/>
      	<intercept-url pattern="/registration" access="permitAll"/>
      	<intercept-url pattern="/resources/**" access="permitAll"/>
@@ -17,8 +18,8 @@
         <intercept-url pattern="/student/*" access="hasRole('ROLE_STUDENT')"/>
         <form-login login-page="/login" default-target-url="/welcome" authentication-failure-url="/login?error" username-parameter="username" password-parameter="password"/>
         <logout logout-success-url="/login?logout" />        
-        <session-management>
-        	<concurrency-control expired-url="/sessionExpired"/>
+        <session-management session-authentication-error-url="/login">
+        	<concurrency-control max-sessions="1" expired-url="/sessionExpired"/>
         </session-management>
         <csrf/>
     </http>

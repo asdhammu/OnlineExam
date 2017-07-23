@@ -6,5 +6,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 <div class="container" id="footer">
-	
+
+	<div class="row">
+		<div class="col-lg-4">@UTDallas</div>
+		<div class="col-lg-4"></div>
+		<div class="col-lg-4"></div>
+		
+	</div>	
 </div>
