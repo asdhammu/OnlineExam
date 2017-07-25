@@ -23,58 +23,58 @@ import javassist.bytecode.stackmap.TypeData.ClassName;
 public class UserDaoImpl implements UserDao {
 
 	private static final Logger LOGGER = Logger.getLogger(ClassName.class.getName());
-	
+
 	@Autowired
 	private SessionFactory sessionFactory;
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
-	
+
 	@Override
 	public void save(User user) {
-	
+
 		LOGGER.info("User being added");
 		Session session = null;
 		Transaction tx = null;
-		try{			
+		try {
 			session = this.sessionFactory.openSession();
 			tx = session.beginTransaction();
 			user.setPassword(this.bCryptPasswordEncoder.encode(user.getPassword()));
-			
-			user.setRoles(setRoleForUser(user,session));
-			session.persist(user);		
+
+			user.setRoles(setRoleForUser(user, session));
+			session.persist(user);
 			tx.commit();
-			
+
 			LOGGER.info("User added");
-		}catch(Exception e){
+		} catch (Exception e) {
 			LOGGER.log(Level.SEVERE, "Error occured while adding user", e);
 			tx.rollback();
-		}finally{
+		} finally {
 			session.close();
 		}
 
 	}
 
-	private Set<Role> setRoleForUser(User user, Session session) {		
-		
-		Set<Role> roles = new HashSet<>();	
-		for(String s:user.getRoleOfUser()){
+	private Set<Role> setRoleForUser(User user, Session session) {
+
+		Set<Role> roles = new HashSet<>();
+		for (String s : user.getRoleOfUser()) {
 			Role role = new Role();
-			if(s.equalsIgnoreCase(Constants.admin)){
-				role.setRole(Roles.ROLE_ADMIN.toString());				
-			}else if(s.equalsIgnoreCase(Constants.teacher)){
+			if (s.equalsIgnoreCase(Constants.admin)) {
+				role.setRole(Roles.ROLE_ADMIN.toString());
+			} else if (s.equalsIgnoreCase(Constants.teacher)) {
 				role.setRole(Roles.ROLE_TEACHER.toString());
-			}else{
+			} else {
 				role.setRole(Roles.ROLE_STUDENT.toString());
 			}
 			role.setUser(user);
 			roles.add(role);
 			session.save(role);
 		}
-		
+
 		return roles;
 	}
-	
+
 	public BCryptPasswordEncoder getbCryptPasswordEncoder() {
 		return bCryptPasswordEncoder;
 	}
@@ -91,6 +91,5 @@ public class UserDaoImpl implements UserDao {
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-
 
 }

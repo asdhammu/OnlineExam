@@ -51,7 +51,12 @@
 				<value>edu.UTDallas.entity.Course</value>
 				<value>edu.UTDallas.entity.Role</value>
 				<value>edu.UTDallas.entity.Section</value>
-				<value>edu.UTDallas.entity.StudentSection</value>
+				<value>edu.UTDallas.entity.StudentSection</value>								
+				<value>edu.UTDallas.entity.Question</value>
+				<value>edu.UTDallas.entity.Quiz</value>
+				<value>edu.UTDallas.entity.QuizQuestion</value>
+				<value>edu.UTDallas.entity.Tag</value>
+				<value>edu.UTDallas.entity.TestCase</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

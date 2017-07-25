@@ -11,38 +11,35 @@ import java.util.Set;
 @Table(name = "user")
 public class User {
 
-	
-	
-    @Id
-    @Column(name = "username")
-    private String username;
+	@Id
+	@Column(name = "username")
+	private String username;
 
-    @Column(name = "first_name")
-    private String firstName;
+	@Column(name = "first_name")
+	private String firstName;
 
-    @Column(name = "last_name")
-    private String lastName;
+	@Column(name = "last_name")
+	private String lastName;
 
-    @Column(name = "password")
-    private String password;
+	@Column(name = "password")
+	private String password;
 
-    @Column(name = "enabled")
-    private boolean enabled;
+	@Column(name = "enabled")
+	private boolean enabled;
 
-    @Transient
+	@Transient
 	private String passwordConfirm;
-    
-    @Transient
-    private String[] roleOfUser;
-    
-    @OneToMany(mappedBy = "user")
-    private List<Section> sectionList;
 
-    @OneToMany(fetch = FetchType.EAGER ,mappedBy = "user",cascade = CascadeType.ALL)
-    private Set<Role> roles;
+	@Transient
+	private String[] roleOfUser;
 
-    
-    public String[] getRoleOfUser() {
+	@OneToMany(mappedBy = "user")
+	private List<Section> sectionList;
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
+	private Set<Role> roles;
+
+	public String[] getRoleOfUser() {
 		return roleOfUser;
 	}
 
@@ -51,68 +48,67 @@ public class User {
 	}
 
 	public String getUsername() {
-        return username;
-    }
+		return username;
+	}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public boolean isEnabled() {
-        return enabled;
-    }
+	public boolean isEnabled() {
+		return enabled;
+	}
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
 
-    public String getFirstName() {
-        return firstName;
-    }
+	public String getFirstName() {
+		return firstName;
+	}
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
-    public String getLastName() {
-        return lastName;
-    }
+	public String getLastName() {
+		return lastName;
+	}
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public List<Section> getSectionList() {
-        return sectionList;
-    }
+	public List<Section> getSectionList() {
+		return sectionList;
+	}
 
-    public void setSectionList(List<Section> sectionList) {
-        this.sectionList = sectionList;
-    }
+	public void setSectionList(List<Section> sectionList) {
+		this.sectionList = sectionList;
+	}
 
-    public Set<Role> getRoles() {
-        return roles;
-    }
+	public Set<Role> getRoles() {
+		return roles;
+	}
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
-    
-    public String getPasswordConfirm() {
-        return passwordConfirm;
-    }
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
 
-    public void setPasswordConfirm(String passwordConfirm) {
-        this.passwordConfirm = passwordConfirm;
-    }
+	public String getPasswordConfirm() {
+		return passwordConfirm;
+	}
 
+	public void setPasswordConfirm(String passwordConfirm) {
+		this.passwordConfirm = passwordConfirm;
+	}
 
 }
