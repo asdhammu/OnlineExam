@@ -11,7 +11,6 @@
 	}
 </style>
 
-
 <div class="row">
 	<pre id="description" style="width:900px">
 	/**
@@ -34,6 +33,11 @@
 	
 	<textarea id="input"></textarea>
 </div>
+
+<div id="wait">
+	<img src='resources/gif/loader.gif' width="64" height="64" /><br>Loading..
+</div>
+
 <div class="row" style="padding-top:10px">
 	<button type="button" onclick="compileCode()" class="btn btn-lg btn-primary">COMPILE</button>
 </div>
@@ -87,6 +91,10 @@ function compileCode() {
             url: 'compile',
             beforeSend: function(request) {
                 request.setRequestHeader(header, token);
+                $("#wait").css("display", "block");
+            },
+            complete: function(){
+            	$("#wait").css("display", "none");	
             },
             type: 'post',
             dataType: 'text',
@@ -94,10 +102,10 @@ function compileCode() {
             success: successHandler
     });
 		
-		function successHandler(data) {		
-			$('#compileResult').html(data);
-	       
-	    }
+	function successHandler(data) {		
+		$('#compileResult').html(data);
+       
+    }
 	
 } 
 

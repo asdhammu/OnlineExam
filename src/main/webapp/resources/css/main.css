@@ -7,6 +7,16 @@
    background:#999;
 }
 
+#wait{
+	display:none;
+	width:69px;
+	height:89px;
+	border:1px solid black;
+	position:absolute;
+	top:105%;
+	
+	padding:2px;
+}
 /* 
 #header {	
 	top:0px
