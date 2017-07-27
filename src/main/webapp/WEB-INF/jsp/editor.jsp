@@ -31,19 +31,21 @@
 
 <div class="row" style="padding-top:10px">
 	
-	<textarea id="input"></textarea>
+	<textarea id="input">Hello World!</textarea>
 </div>
 
 <div id="wait">
-	<img src='resources/gif/loader.gif' width="64" height="64" /><br>Loading..
+	<img src='resources/gif/loader.gif' width="64" height="64" /><br>Compiling..
 </div>
 
 <div class="row" style="padding-top:10px">
 	<button type="button" onclick="compileCode()" class="btn btn-lg btn-primary">COMPILE</button>
 </div>
-<div class="row" id="compileResult">
-</div>
- 
+<div class="row" style="padding-top:10px">
+<pre id="compileResult">
+	Compile Result:
+</pre>
+ </div>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script> 
 <!-- load ace -->
 <script src="resources/src-noconflict/ace.js"></script>
@@ -79,7 +81,7 @@ editor.gotoLine(row + 1, column);
  */
 var txtArea = $("textarea#code").hide();
 
- 
+$("#compileResult").hide(); 
  
 function compileCode() {
 	
@@ -102,8 +104,9 @@ function compileCode() {
             success: successHandler
     });
 		
-	function successHandler(data) {		
-		$('#compileResult').html(data);
+	function successHandler(data) {
+		$('#compileResult').html("Compile Result\n" + data);
+		$('#compileResult').show();
        
     }
 	

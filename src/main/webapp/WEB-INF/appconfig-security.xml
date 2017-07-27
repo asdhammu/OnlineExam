@@ -9,11 +9,10 @@
 
     <http auto-config="true" use-expressions="true">
     	<access-denied-handler error-page="/403" />
-     	<intercept-url pattern="/login" access="permitAll"/>
-     	<intercept-url pattern="/registration" access="permitAll"/>
+     	<intercept-url pattern="/login" access="permitAll"/>     	
      	<intercept-url pattern="/resources/**" access="permitAll"/>
-        <intercept-url pattern="/**" access="hasAnyRole('ROLE_ADMIN,ROLE_TEACHER,ROLE_STUDENT')"/>
-        <intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')"/>
+        <!-- <intercept-url pattern="/**" access="hasAnyRole('ROLE_ADMIN,ROLE_TEACHER,ROLE_STUDENT')"/>
+         --><intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/teacher/*" access="hasRole('ROLE_TEACHER')"/>
         <intercept-url pattern="/student/*" access="hasRole('ROLE_STUDENT')"/>
         <form-login login-page="/login" default-target-url="/welcome" authentication-failure-url="/login?error" username-parameter="username" password-parameter="password"/>

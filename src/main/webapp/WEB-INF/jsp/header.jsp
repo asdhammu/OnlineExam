@@ -28,7 +28,7 @@
 		<div class="col-lg-8"></div>
 		<div class="col-lg-4">
 			<c:if test="${pageContext.request.userPrincipal.name != null}">
-		        <form id="logoutForm" method="POST" action="logout">
+		        <form id="logoutForm" method="POST" action="${contextPath}/logout">
 		            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		        </form>
 		

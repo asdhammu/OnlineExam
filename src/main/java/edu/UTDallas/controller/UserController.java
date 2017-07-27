@@ -3,12 +3,11 @@ package edu.UTDallas.controller;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -52,24 +51,25 @@ public class UserController {
 
 	@RequestMapping(value = { "/", "/index", "welcome" }, method = RequestMethod.GET)
 	public String welcome(Model model) {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	    String name = auth.getName();
 		
-	    String redirectURL = "welcome";
+	    if(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken){
+	    	return "redirect:/login";
+	    }
+	    
+	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    String redirectURL = "welcome";	    
+	    User user = userService.findByUsername(auth.getName());
 	    
 	    
-	    User user = userService.findByUsername(name);
-	    if(user!=null){
-	    	for(Role r : user.getRoles()){
-		    	if(r.getRole().equals(Roles.ROLE_ADMIN.toString())){
-		    		redirectURL = "admin";
-		    		break;
-		    	}else if (r.getRole().equals(Roles.ROLE_TEACHER.toString())){
-		    		redirectURL = "teacher";		    		
-		    	}else{
-		    		redirectURL = "student";
-		    	}
-		    }
+	    for(Role r : user.getRoles()){
+	    	if(r.getRole().equals(Roles.ROLE_ADMIN.toString())){
+	    		redirectURL = "admin";
+	    		break;
+	    	}else if (r.getRole().equals(Roles.ROLE_TEACHER.toString())){
+	    		redirectURL = "teacher";		    		
+	    	}else{
+	    		redirectURL = "student";
+	    	}
 	    }
 	    
 	    
@@ -77,21 +77,6 @@ public class UserController {
 		return redirectURL;
 	}
 
-	@RequestMapping(value = "/registration", method = RequestMethod.POST)
-	public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
-		userValidator.validate(userForm, bindingResult);
-
-		if (bindingResult.hasErrors()) {
-			return "registration";
-		}
-
-		userService.save(userForm);
-
-		//securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
-
-		return "redirect:/index";
-	}
-	
 	@RequestMapping(value="/compile",method=RequestMethod.POST)
 	public String compile(@RequestParam("compileCode") String compileCode, @RequestParam("input") String input, Model model){
 		
@@ -107,13 +92,6 @@ public class UserController {
 		return "compileResult";
 	}
 	
-	@RequestMapping(value = "/registration", method = RequestMethod.GET)
-	public String registration(Model model) {
-		model.addAttribute("userForm", new User());
-
-		return "registration";
-	}
-
 	public UserValidator getUserValidator() {
 		return userValidator;
 	}

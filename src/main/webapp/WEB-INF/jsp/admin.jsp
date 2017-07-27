@@ -13,6 +13,8 @@
 	<div class="container">
 		<div class="row">You are admin</div>	
 	
+		<h4 class="text-center"><a href="admin/registration">Add User</a></h4>
+		
 	</div>
 	
 	<jsp:include page="footer.jsp"/>
