@@ -31,7 +31,13 @@ public class SessionController {
 		model.addAttribute("message", "Your are not authorised");
 		return "403";
 	}
-
+	
+	@RequestMapping(value="/404",method=RequestMethod.GET)
+	public String pageNotFound(Model model){
+		model.addAttribute("message", "Page not found");
+		return "404";
+	}
+	
 	
 	
 	

@@ -48,9 +48,9 @@
  </div>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script> 
 <!-- load ace -->
-<script src="resources/src-noconflict/ace.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.8/ace.js"></script>
 <!-- load ace language tools -->
-<script src="resources/src-noconflict/ext-language_tools.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.8/ext-language_tools.js"></script>
 <script>
 
 var editor = ace.edit("description");
@@ -94,6 +94,7 @@ function compileCode() {
             beforeSend: function(request) {
                 request.setRequestHeader(header, token);
                 $("#wait").css("display", "block");
+                $("#compileResult").hide();
             },
             complete: function(){
             	$("#wait").css("display", "none");	
