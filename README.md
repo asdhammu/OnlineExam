@@ -1,6 +1,6 @@
 # OnlineExam
 
-Online Java Code compiler which compiles the java code and returns the result.
+Online Java Code compiler which compiles the java code and returns the result based on the user input.
 
 
 # How to Set Up?
