@@ -35,11 +35,7 @@
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306/onlineexamportal"/>		
 		<property name="username" value="root" />
-		<property name="password" value="admin"/>
-  
-		<!-- <property name="url" value="jdbc:mysql://aa9ktfkqigz55c.c7ayh0drixl0.us-west-2.rds.amazonaws.com:3306/onlineexamportal"/>
-		<property name="username" value="utdallas" />
-		<property name="password" value="utdallas123#"/> --> 
+		<property name="password" value="admin"/>		
 		
 	</bean>
 	<bean id="hibernate4AnnotatedSessionFactory"
