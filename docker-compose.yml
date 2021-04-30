@@ -1,0 +1,23 @@
+version: "3.7"
+services:
+
+  mysql_db:
+    container_name: mysql_db
+    image: "mysql:8.0"
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: onlineexam
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_ROOT_HOST: '%'
+
+  api_service:
+    build: .
+    restart: always
+    volumes:
+      - ~/.m2:/root/.m2
+    ports:
+      - 8080:8080
+    depends_on:
+      - mysql_db
