@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
+<body>
+<div class="container">
+
+    <form th:action="@{/registration}" th:object="${userForm}" class="form-signin" action="#" th:method="POST">
+        <h2 class="form-signin-heading">Create your account</h2>
+        <div class="form-group ${status.error ? 'has-error' : ''}">
+            <input type="text"  th:field="*{username}"  class="form-control" placeholder="Username"
+                   autofocus="true">
+            <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-danger"></span>
+        </div>
+        <div class="form-group ${status.error ? 'has-error' : ''}">
+            <input type="text"  th:field="*{firstName}"  class="form-control" placeholder="First Name"
+                   autofocus="true">
+            <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="text-danger"></span>
+        </div>
+        <div class="form-group ${status.error ? 'has-error' : ''}">
+            <input type="text"  th:field="*{lastName}"  class="form-control" placeholder="Last Name"
+                   autofocus="true">
+            <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="text-danger"></span>
+        </div>
+
+        <div class="form-group ${status.error ? 'has-error' : ''}">
+            <input type="password" th:field="*{password}" class="form-control" placeholder="Password">
+            <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label>User Role</label>
+            <select name="locale-selector" th:field="*{userRole}" onchange="switchRole(this.options[this.selectedIndex].value)">
+                <option th:each="role : ${T(edu.utdallas.dto.UserRole).values()}"
+                        th:value="${role}" th:text="${role}"
+                        th:selected="${role == userRole}" ></option>
+            </select>
+        </div>
+
+        <!--<div class="form-group ${status.error ? 'has-error' : ''}">
+            <input type="password"  th:field="*{passwordConfirm}" class="form-control"
+                   placeholder="Confirm your password">
+            <span th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}" class="text-danger"></span>
+        </div>-->
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+    </form>
+    <!--
+    <form:form method="POST" modelAttribute="userForm" class="form-signin">
+        <h2 class="form-signin-heading">Create your account</h2>
+        <spring:bind path="username">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <form:input type="text" path="username" class="form-control" placeholder="User Name"
+                            autofocus="true"></form:input>
+                <form:errors path="username"></form:errors>
+            </div>
+        </spring:bind>
+		
+		 <spring:bind path="firstName">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <form:input type="text" path="firstName" class="form-control" placeholder="First Name"></form:input>
+                <form:errors path="firstName"></form:errors>
+            </div>
+        </spring:bind>
+		
+		<spring:bind path="lastName">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <form:input type="text" path="lastName" class="form-control" placeholder="Last Name"></form:input>
+                <form:errors path="lastName"></form:errors>
+            </div>
+        </spring:bind>
+		
+        <spring:bind path="password">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <form:input type="password" path="password" class="form-control" placeholder="Password"></form:input>
+                <form:errors path="password"></form:errors>
+            </div>
+        </spring:bind>
+        
+        
+
+        <spring:bind path="passwordConfirm">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <form:input type="password" path="passwordConfirm" class="form-control"
+                            placeholder="Confirm your password"></form:input>
+                <form:errors path="passwordConfirm"></form:errors>
+            </div>
+        </spring:bind>
+
+		<spring:bind path="roleOfUser">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+
+            	<form:checkbox path="roleOfUser" label="Student" value="Student"/><br/>	
+            	<form:checkbox path="roleOfUser" label="Teacher" value="Teacher"/>
+            	<form:checkbox path="roleOfUser" label="Admin" value="Admin"/><br/>
+            	   
+            	<form:errors path="roleOfUser"></form:errors>             
+            </div>
+        </spring:bind>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+    </form:form>-->
+
+</div>
+</body>
+</html>

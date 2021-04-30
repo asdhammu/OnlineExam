@@ -1,3 +1,0 @@
-<%@ page isELIgnored="false" %>    
-
-${message}
