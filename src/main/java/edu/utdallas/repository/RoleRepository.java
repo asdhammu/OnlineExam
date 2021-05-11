@@ -1,6 +1,7 @@
 package edu.utdallas.repository;
 
 import edu.utdallas.entity.Role;
+import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,4 +15,6 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
 
     @Query("select t from Role t where name =:name")
     Role getRole(@Param("name") String name);
+
+    boolean existsRoleByName(String name);
 }

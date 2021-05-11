@@ -16,6 +16,13 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    public Role(@NotNull String name) {
+        this.name = name;
+    }
+
+    public Role() {
+    }
+
     @NotNull
     @Column(name = "name")
     private String name;
@@ -34,5 +41,13 @@ public class Role {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
