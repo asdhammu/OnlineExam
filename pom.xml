@@ -7,7 +7,7 @@
 	<name>onlineexam Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 	<properties>
-		<java.version>13</java.version>
+		<java.version>11</java.version>
 	</properties>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
