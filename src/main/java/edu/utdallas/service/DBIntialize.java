@@ -6,9 +6,11 @@ import edu.utdallas.repository.RoleRepository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.util.logging.Logger;
 
 @Service
 public class DBIntialize {
+    private final static Logger logger = Logger.getAnonymousLogger();
     private final RoleRepository repository;
 
     public DBIntialize(RoleRepository repository) {
@@ -17,10 +19,9 @@ public class DBIntialize {
 
     @PostConstruct
     void init() {
-
         for (var role : UserRole.values()) {
-            repository.save(new Role(role.name()));
+            repository.saveAndFlush(new Role(role.name()));
         }
-        repository.flush();
+        logger.info("Roles table initialized");
     }
 }
