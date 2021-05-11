@@ -13,17 +13,20 @@ public class DBInitializer {
     private final static Logger logger = Logger.getAnonymousLogger();
     private final RoleRepository repository;
 
+
     public DBInitializer(RoleRepository repository) {
         this.repository = repository;
     }
 
     @PostConstruct
     void init() {
-        logger.warning("****************************************************");
+        logger.warning("*****Init Role*****");
         for (var userRole : UserRole.values()) {
-            var role = new Role(userRole.name());
-            repository.saveAndFlush(role);
-            logger.warning("Role " + role.toString() + " is initialized");
+            if (!repository.existsRoleByName(userRole.name())) {
+                var role = new Role(userRole.name());
+                repository.saveAndFlush(role);
+                logger.warning("Role " + role.toString() + " is initialized");
+            }
         }
         logger.info("Roles table initialized");
     }
