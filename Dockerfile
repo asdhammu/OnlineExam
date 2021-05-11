@@ -2,9 +2,10 @@
 # Build stage
 #
 FROM maven:3.6.0-jdk-11-slim AS build
+WORKDIR /app
 COPY src /app/src
 COPY pom.xml /app
-RUN --mount=type=cache,target=/root/.m2 mvn -f /app/pom.xml clean package
+RUN mvn -f /app/pom.xml clean package -DskipTests
 
 
 
