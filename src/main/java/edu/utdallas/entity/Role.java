@@ -16,6 +16,10 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    public Role(@NotNull String name) {
+        this.name = name;
+    }
+
     @NotNull
     @Column(name = "name")
     private String name;
