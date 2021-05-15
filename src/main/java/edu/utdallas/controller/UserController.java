@@ -1,12 +1,11 @@
 package edu.utdallas.controller;
 
-import java.util.Collection;
-import java.util.Set;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
-
 import edu.utdallas.dto.UserRole;
-import org.springframework.beans.factory.annotation.Autowired;
+import edu.utdallas.entity.User;
+import edu.utdallas.service.SecurityService;
+import edu.utdallas.service.UserService;
+import edu.utdallas.util.OnlineExamUtil;
+import javassist.bytecode.stackmap.TypeData.ClassName;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -16,16 +15,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import edu.utdallas.util.OnlineExamUtil;
-import edu.utdallas.entity.User;
-import edu.utdallas.service.SecurityService;
-import edu.utdallas.service.UserService;
-import javassist.bytecode.stackmap.TypeData.ClassName;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Set;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 /**
  * Created by asdha on 5/25/2017.
@@ -35,11 +33,14 @@ public class UserController {
 
 	private static final Logger LOGGER = Logger.getLogger(ClassName.class.getName());
 
-	@Autowired
-	private SecurityService securityService;
+	private final SecurityService securityService;
 
-	@Autowired
-	private UserService userService;
+	private final UserService userService;
+
+	public UserController(SecurityService securityService, UserService userService) {
+		this.securityService = securityService;
+		this.userService = userService;
+	}
 
 	@GetMapping(value = "/login")
 	public String login(Model model) {

@@ -3,7 +3,6 @@ package edu.utdallas.controller;
 import edu.utdallas.dto.User;
 import edu.utdallas.service.SecurityService;
 import edu.utdallas.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -17,11 +16,16 @@ import javax.validation.Valid;
 @Controller
 public class AdminController {
 
-	@Autowired
+	final
 	UserService userService;
 
-	@Autowired
+	final
 	SecurityService securityService;
+
+	public AdminController(UserService userService, SecurityService securityService) {
+		this.userService = userService;
+		this.securityService = securityService;
+	}
 
 	@RequestMapping(value = "/registration", method = RequestMethod.POST)
 	public String registration(@Valid @ModelAttribute("userForm") User userForm, Errors errors) {
